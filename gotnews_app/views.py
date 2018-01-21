@@ -35,7 +35,7 @@ def index(request):
         other_articles = Article.objects.filter(event=event).exclude(id__in=[most_positive_id, most_negative_id]).order_by('overall_sentiment')
         positive_articles = other_articles[0:int(floor(other_articles.count() / 2))]
         negative_articles = other_articles[int(floor(other_articles.count() / 2)): other_articles.count() - 1]
-        expand_rows[event.id] = [positive_articles, negative_articles]
+        expand_rows[event.id] = list(zip(positive_articles, negative_articles))
 
         # print("<-----------------------")
         # print(articles.count())

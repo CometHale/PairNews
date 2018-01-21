@@ -114,28 +114,26 @@ function toggleHidden(node1Id, node2Id) {
 			{% for event_id, art_querysets in other_articles.items %}
         {% if key == event_id %}
           <div class="expand-row" id="row-{{row.id}}">
-              {% for article in art_querysets.0 %}
-                 <div class="col-xs-sm-md-lg-6 positive">
+              {% for article in art_querysets %}
+                <div class="expand-col-xs-sm-md-lg-6 positive">
                     <div class="text">
                       <div class="wrapper">
-                        <div id="circle-placeholder-{{article.id}}" class="progress-container"></div>
-                        <div id="{{article.id}}-title" class="sub-article-title"><a href='{{article.url}}'>{{article.title}}</a></div>
+                        <div id="circle-placeholder-{{article.0.id}}" class="progress-container"></div>
+                        <div id="{{article.0.id}}-title" class="sub-article-title"><a href='{{article.0.url}}'>{{article.0.title}}</a></div>
                       </div>
-                        <div id="{{article.id}}-sentiment" class="sub-article-sentiment">{{article.overall_sentiment}}</div>
-                        <div id="{{article.id}}-source" class="sub-article-source">{{ article.news_source.name }}</div>
+                        <div id="{{article.0.id}}-sentiment" class="sub-article-sentiment">{{article.0.overall_sentiment}}</div>
+                        <div id="{{article.0.id}}-source" class="sub-article-source">{{ article.0.news_source.name }}</div>
                     </div>
                   </div>
-              {% endfor %}
 
-            {% for article in art_querysets.1 %}
-                 <div class="col-xs-sm-md-lg-6 negative">
+                  <div class="expand-col-xs-sm-md-lg-6 negative">
                     <div class="text">
                       <div class="wrapper">
-                        <div id="circle-placeholder-{{article.id}}" class="progress-container"></div>
-                        <div id="{{article.id}}-title" class="sub-article-title"><a href='{{article.url}}'>{{article.title}}</a></div>
+                        <div id="circle-placeholder-{{article.1.id}}" class="progress-container"></div>
+                        <div id="{{article.1.id}}-title" class="sub-article-title"><a href='{{article.1.url}}'>{{article.1.title}}</a></div>
                       </div>
-                        <div id="{{article.id}}-sentiment" class="sub-article-sentiment">{{article.overall_sentiment}}</div>
-                        <div id="{{article.id}}-source" class="sub-article-source">{{ article.news_source.name }}</div>
+                        <div id="{{article.1.id}}-sentiment" class="sub-article-sentiment">{{article.1.overall_sentiment}}</div>
+                        <div id="{{article.1.id}}-source" class="sub-article-source">{{ article.1.news_source.name }}</div>
                     </div>
                   </div>
               {% endfor %}

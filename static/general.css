@@ -47,6 +47,7 @@ div.expand-col-xs-sm-md-lg-6{
 	width:50%;
 	float:left;
 	height:25vh;
+	margin-bottom: 5px;
 }
 
 div.col-xs-sm-md-lg-6{
@@ -55,14 +56,14 @@ div.col-xs-sm-md-lg-6{
 	height:25vh;
 }
 
-div.col-xs-sm-md-lg-6.positive{
+div.col-xs-sm-md-lg-6.positive, div.expand-col-xs-sm-md-lg-6.positive{
 	background-color: #C8EBC3;
 	border-top-left-radius: 5px;
 	border-bottom-left-radius: 5px;
 	
 }
 
-div.col-xs-sm-md-lg-6.negative{
+div.col-xs-sm-md-lg-6.negative, div.expand-col-xs-sm-md-lg-6.negative{
 	background-color:#F9DED3;
 	border-top-right-radius: 5px;
 	border-bottom-right-radius: 5px;
