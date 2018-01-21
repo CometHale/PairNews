@@ -21,7 +21,12 @@ def main():
 
 	newses = ["CNN", "Breitbart", "The Washington Post", "Fox", "The Onion", "The Root", "BBC", "Aljazeera"]
 
-	for news in newses
+	for news in newses:
+		news_source = NewsSource.objects.create(name=news)
+
+	for i in range(0,50):
+		date = make_aware(datetime(1, 1 + (i % 10), 2018), get_default_timezone())
+		# overall_sentiment = 
 
 
 
