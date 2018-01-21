@@ -39,8 +39,14 @@ urlBlacklist = [
     re.compile(r".*usatoday\.com/picture-gallery/.*"),
     re.compile(r".*/video/.*"),
     re.compile(r".*/videos/.*"),
-    re.compile(r".*video\.foxnews\.com"),
-    re.compile(r".*www\.wsj\.com.*")
+    re.compile(r".*video\.foxnews\.com.*"),
+    re.compile(r".*www\.wsj\.com.*"),
+    re.compile(r".*overwatchwire\.usatoday\.com.*"),
+    re.compile(r".*reuters\.com.*/soccer-portugal-standings/.*"),
+    re.compile(r".*reuters\.com.*/us-tennis-ausopen-.*/.*"),
+    re.compile(r".*reuters\.com.*/us-olympics-2018-sno-.*/.*"),
+    re.compile(r".*washingtonpost\.com/sports/.*"),
+    re.compile(r".*washingtonpost\.com/news/capital-weather-gang/.*")
 ]
 
 def matches_none(url, reList):
