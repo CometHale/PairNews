@@ -26,16 +26,26 @@ def __match_tag(soup, tagName, idName=True, className=True):
         "class": className
     })
 
+def __remove_tag(soup, tagName, idName=True, className=True):
+    badTags = __match_tag(soup, "div", idName=idName, className=className)
+    for b in badTags:
+        b.decompose()
+
+
 
 def __scrape_fortune(soup):
     return __match_tag(soup, "div", idName="article-body", className=None)
 
 def __scrape_the_hill(soup):
+    __remove_tag(soup, "span", idName=True, className="rollover-people-block")
+
     mainMatches = __match_tag(soup, "div", idName=None, className="field-items")
     textMatches = map(lambda mainStoryTag: "\n".join([tag.get_text() for tag in mainStoryTag.find_all("p")]), mainMatches)
     return textMatches
 
 def __scrape_politico(soup):
+    __remove_tag(soup, "div", idName=None, className="story-supplement")
+
     mainStoryTag = __match_tag(soup, "div", idName=None, className="story-text")[0]
     return "\n".join([tag.get_text() for tag in mainStoryTag.find_all("p")])
 
@@ -49,17 +59,27 @@ def __scrape_huffington_post(soup):
     mainStoryTag = matches[0]
     return "\n".join([tag.get_text() for tag in __match_tag(mainStoryTag, "div", idName=None, className="content-list-component")])
 
+def __scrape_new_york_time(soup):
+    __remove_tag(soup, "div", idName="newsletter-promo", className=True)
+    return __default_scrape(soup)
+
+def __scrape_usa_today(soup):
+    __remove_tag(soup, "span", idName=None, className="exclude-from-newsgate")
+    text = __default_scrape(soup)
+    return text.replace("Related Stories:", "")
 
 def __default_scrape(soup):
     return fulltext(str(soup))
 
 SCRAPE_FUNCS = {
     "fortune" : __scrape_fortune,
-    "the-hill" : __default_scrape,
+    "the-hill" : __scrape_the_hill,
     "politico" : __scrape_politico,
     "breitbart-news" : __scrape_breitbart,
     "cnn" : __default_scrape,
-    "the-huffington-post" : __scrape_huffington_post
+    "the-huffington-post" : __scrape_huffington_post,
+    "the-new-york-times" : __scrape_new_york_time,
+    "usa-today" : __scrape_usa_today,
 }
 
 def _scrape_text(url, sourceId):
