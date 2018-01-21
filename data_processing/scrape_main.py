@@ -57,6 +57,7 @@ urlBlacklist = [
     re.compile(r".*reuters.*/us-mma-.*"),
     re.compile(r".*abc.*/shows/.*"),
     re.compile(r".*\.mp3"),
+    re.compile(r".*\.mp4"),
 ]
 
 def matches_none(url, reList):
