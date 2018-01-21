@@ -22,10 +22,11 @@ def index(request):
 		# most_negative = event.articles_related.filter(sentiment=event.min_sentiment).order_by('-date')
 		# events_dict[event.id] = [most_positive, most_negative]
 
-
-
-
-
+  numbers_list = range(1, 50)
+  paginator = Paginator(numbers_list, 7)
+  
+  page = request.GET.get('page')
+  numbers = paginator.get_page(page) #replace numbers_list and numbers with actual articles
 	
 	#Collect Articles
 	# articles = Article.objects.all().order_by('-overall_sentiment')
@@ -36,7 +37,7 @@ def index(request):
 	#Pair the articles with the most positive and negative sentiments
 
 	context = {}
-	return render(request,template_name="gotnews_app/index.html", context=context)
+	return render(request,"gotnews_app/index.html", {'numbers':numbers,  'context': context})
 
 def expand_row(request):
 	"""
