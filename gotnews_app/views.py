@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.db.models import Max, Min
+from django.db.models import Max, Min, Count
 from math import floor
 from django.http import HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -12,7 +12,7 @@ def index(request):
     """
 
     events_dict = dict()
-    events = Event.objects.all().order_by('-start_date')
+    events = Event.objects.all().annotate(article_count=Count('articles_related')).order_by('-article_count')
     expand_rows = dict()
     # .annotate(max_sentiment=Max('articles_related__overall_sentiment'), min_sentiment=Min('articles_related__overall_sentiment'))
 
