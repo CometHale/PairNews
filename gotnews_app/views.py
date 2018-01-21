@@ -22,12 +22,14 @@ def index(request):
         # most_positive = event.articles_related.filter(sentiment=event.max_sentiment).order_by('-date')
         # most_negative = event.articles_related.filter(sentiment=event.min_sentiment).order_by('-date')
         events_dict[event.id] = [most_positive, most_negative]
-        print("<-----------------------")
-        print(articles.count())
+        for article in articles:
+            print(article.title)
+        # print("<-----------------------")
+        # print(articles.count())
 
-        arts = Article.objects.filter(event=event)
-        print(arts.count())
-        print("<-----------------------")
+        # arts = Article.objects.filter(event=event)
+        # print(arts.count())
+        # print("<-----------------------")
 
     # numbers_list = range(1, 50)
     paginator = Paginator(events, 7)

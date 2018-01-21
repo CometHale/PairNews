@@ -80,7 +80,4 @@ def main():
 						article_assoc.sentiment = new_article_sentiment / article_count
 						news_assoc.save()
 						article_assoc.save()
-
-	end = start = time.time()
-	print("Time Elapsed:::::" + end - start)
 main()
