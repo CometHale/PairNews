@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "hackdavis-2018-1516337575963",
+  "private_key_id": "b805a2330a31642ed01a9b131dd731cb0d79c019",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDVS7XO6n4u/7sN\na3j94m3bYhMG5HNi5UMKpP7mZ2WB7ImwSVhpMtnW+8RTBBQyMVOUdttKeJeq5X15\nnXtxWbUo1SsxC1c2OUd8DrGVV/XGOygBaLpc/LgNBSbV8IgFRR7ThLAbC3nL19Bh\ni2Y6Lz1itkeZKSDggJfGE2al3LDiJx5NStRAazneCBkdKFc9abrG1Isqu6bXWucK\nI5soeXaR+AAaI7Y+eSyuAHpzNQVTItZe3hgH98GLTPaFghzjDZzB9BG+DXisGoTT\nKCH3b6JNhOXG33T9moFN9UUnMtK8cxKJWoucbauuRz3tiyPBAVMfsPC2cvDPtq1Z\nD2ToAsDZAgMBAAECggEAJiPBWQRDt3Y5dZsZ2bYPJEsrcVBQ1KZ/oCvkO4FSHJMW\nBMx8r2TtIHzI/HoufVImKpY9PJoHLsMV9nTjQZ/Dnc9OR5kKSXMhFe0Pso91rnJe\nAzB9oIp9A7D/4oH95IlZS4O+tLtO1lUbGRIi37UaQigrcdbxnstHuF64PGDTzUBT\nTOiVj1GV+RmAPfXyraM3GiKWNekW2nYqFZDeeNLU6nPJiLpnvAVG3vzhrChVnKLw\nefoMHqoRFkkh3zvu8Oi15DINVc38mVY7m80EcYkooVsLmAl1UcpaGpwfh83sCRme\nuYln05jPNE2cb2++RMg5DSJiyQSK8eAtLZSn+oQ+7QKBgQDz5L5h7G32buW14Ixj\nYPFSnEKIJPNgr/D4Jmk1qNQEW79+BSF1fVDD8MnYGecPg06gS/kseQ/5UH/pypUR\ny45jWwtRs6nPLEzU+OiekfJtIdRuU2AKoaGKNanuNnRXjQ5F7PNRJW9PiXC27xlA\nQD1hhEBnNLmhiScEtk76CpZE9QKBgQDf4iXRYnxoZdhc29dUo77sgjLjwargGM9P\nlp7ddUNa+RwEQ3bXoYUlGwtmFQmnpl2KGScC1znLgnyy+0aPygvmz/K/yuC9WuN2\nYzzIYJwhsJTh7GviJ1UbDZtiIHX1S2r8PcQzG7y5ecKjLGG3+cGHLgofXMPr/u7h\noUwNMDk91QKBgBK80S+exXf4XyeQ/9gmu4OYQ7hH9nbILaAy+0RHGzrWfajF5iMr\npIfZOPikTM8xTFoeXB9hkaua1qj0im1akS7q8LyvK+2hvqliEiUUm2ZtAfAT8b3/\nWvTOWKbXgiqzyJPwt2TVlm6q5YD4b50zEkQqr/P95gEWE2xWQU0OgSr9AoGAaVHL\nlJqOB9aRV+2beJenQz9kjTwYFF/XdotWpLt7OhqiEWdjSsETD4ePbzBKYHGk40g9\nz9pLt+7klpYadZ4Ix0Xf3lWkL6/H/XNlrqW0DS0yfK1pevQh1x4pkJnQo9octBii\naaCMwXwEEhrYxWFapysDXAmZqTU+Tyo/ypx68RkCgYEArUEDWGXHHdRZBmAjIZOq\n8jsKiQwxgE0oWc9dlALtvs71iPEwsu/AaysUpJUo9uftUjmi5JxBQdbQVHhomuRW\nU9Fp2JSgoojg4uNxnQPzvzK+MrnnECyIrYtqAP8X1NrKaRAh1/pGgSddweeFcTB6\nFO1f4YsLmfoQWGWCP/GY1xM=\n-----END PRIVATE KEY-----\n",
+  "client_email": "starting-account-o101m1fpa5j5@hackdavis-2018-1516337575963.iam.gserviceaccount.com",
+  "client_id": "101569688007445202128",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/starting-account-o101m1fpa5j5%40hackdavis-2018-1516337575963.iam.gserviceaccount.com"
+}
