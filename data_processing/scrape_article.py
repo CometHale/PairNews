@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+from newspaper import fulltext
 import web
 
 
@@ -38,11 +39,27 @@ def __scrape_politico(soup):
     mainStoryTag = __match_tag(soup, "div", idName=None, className="story-text")[0]
     return "\n".join([tag.get_text() for tag in mainStoryTag.find_all("p")])
 
+def __scrape_breitbart(soup):
+    mainMatches = __match_tag(soup, "div", idName=None, className="entry-content")
+    textMatches = map(lambda mainStoryTag: "\n".join([tag.get_text() for tag in mainStoryTag.find_all("p")]), mainMatches)
+    return textMatches
+
+def __scrape_huffington_post(soup):
+    matches = __match_tag(soup, "div", idName=None, className="entry__text")
+    mainStoryTag = matches[0]
+    return "\n".join([tag.get_text() for tag in __match_tag(mainStoryTag, "div", idName=None, className="content-list-component")])
+
+
+def __default_scrape(soup):
+    return fulltext(str(soup))
 
 SCRAPE_FUNCS = {
     "fortune" : __scrape_fortune,
-    "the-hill" : __scrape_the_hill,
-    "politico" : __scrape_politico
+    "the-hill" : __default_scrape,
+    "politico" : __scrape_politico,
+    "breitbart-news" : __scrape_breitbart,
+    "cnn" : __default_scrape,
+    "the-huffington-post" : __scrape_huffington_post
 }
 
 def _scrape_text(url, sourceId):
@@ -61,7 +78,7 @@ def _scrape_text(url, sourceId):
         return text
     else:
         print("ERR: No scraper implemented for source-id = {}".format(sourceId))
-        return None
+        return __default_scrape(soup)
 
 class ScrapeData:
     def fromJson(jsonDict):
