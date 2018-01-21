@@ -45,6 +45,12 @@ function makeProgress(isPositive, nodeName) {
 }
 
 
+function toggleHidden(node1Id, node2Id) {
+	var node1 = document.getElementById(node1Id);
+	var node2 = document.getElementById(node2Id);
+	node1.classList.add("hidden")
+	node2.classList.remove("hidden")
+}
 </script>
 
 <style>
@@ -61,6 +67,9 @@ function makeProgress(isPositive, nodeName) {
   -ms-transform: scale(-1, 1);
   transform: scale(-1, 1);
 }
+.hidden {
+	display: none;
+}
 </style>
 
 
@@ -71,7 +80,7 @@ function makeProgress(isPositive, nodeName) {
 
 	{% for key, val in events_dict.items %}
 		{% if key == row.id %}
-		<div class="row">
+		<div class="row" id="row-{{row.id}}">
 
 			<div class="col-xs-sm-md-lg-6 positive">
         <div class="text">
@@ -90,8 +99,48 @@ function makeProgress(isPositive, nodeName) {
 	        <div id="{{val.0.id}}-source" class="sub-article-source">{{ val.0.news_source.name }}</div>
         </div>
 	    </div>
-      <button href="{% url 'expand_row' %}"> Expand </button>
+      <!-- <button onclick="toggleHidden('row-{{row.id}}', 'row-{{row.id}}-expanded')"> Expand </button> -->
+      <a class="btn btn-primary" data-toggle="collapse" href="#row-{{row.id}}-expanded" role="button" aria-expanded="false" aria-controls="collapseExample">
+    	More articles
+  	</a>
 		</div>
+
+
+
+
+		<div class="row collapse" id="row-{{row.id}}-expanded">
+			This is a bunch of hidden stuff!
+			<br />
+			This is a bunch of hidden stuff!
+			<br />
+			This is a bunch of hidden stuff!
+			<br />
+			This is a bunch of hidden stuff!
+			<br />
+			This is a bunch of hidden stuff!
+			<br />
+			This is a bunch of hidden stuff!
+			<br />
+			This is a bunch of hidden stuff!
+			<br />
+			This is a bunch of hidden stuff!
+			<br />
+			This is a bunch of hidden stuff!
+			<br />
+			This is a bunch of hidden stuff!
+			<br />
+			This is a bunch of hidden stuff!
+			<br />
+			This is a bunch of hidden stuff!
+			<br />
+			This is a bunch of hidden stuff!
+			<br />
+			This is a bunch of hidden stuff!
+			<br />
+			This is a bunch of hidden stuff!
+			<br />			
+		</div>
+
 
 		<script type="text/javascript">
 			var sent0 = {{val.0.overall_sentiment}} / 100
