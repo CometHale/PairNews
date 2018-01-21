@@ -32,7 +32,7 @@ div.row{
 
 div.col-xs-sm-md-lg-6{
 	width:50%;
-	height:50vh;
+	height:25vh;
 
 }
 
@@ -55,9 +55,12 @@ div.text {
 
 div.sub-article-title {
 	font-weight:bold;
-	font-size:20px
+	font-size:20px;
 }
 
+div.progress-container {
+	float: right;
+}
 div.sub-article-source {
 	font-size:18px;
 	font-weight:bold;
