@@ -41,7 +41,7 @@ class Article(models.Model):
 class NewsSourceEntityAssoc(models.Model):
 	news_source = models.ForeignKey(NewsSource, related_name='entities_related', on_delete=models.CASCADE)
 	entity = models.ForeignKey(Entity, related_name='news_sources_related', on_delete=models.CASCADE)
-	sentiment = models.DecimalField(decimal_places=3, max_digits=5)
+	sentiment = models.DecimalField(decimal_places=3, max_digits=5, default=0.0)
 
 	@receiver(post_save, dispatch_uid='<news_source_entity_id>')
 	def increment_entity_occurence_count(sender, instance, created, raw, using, update_fields, **kwargs):
@@ -63,7 +63,7 @@ class NewsSourceEntityAssoc(models.Model):
 class ArticleEntityAssoc(models.Model):
 	article = models.ForeignKey(Article, related_name='entities_related', on_delete=models.CASCADE)
 	entity = models.ForeignKey(Entity, related_name='articles_related', on_delete=models.CASCADE)
-	sentiment = models.DecimalField(decimal_places=3, max_digits=5)
+	sentiment = models.DecimalField(decimal_places=3, max_digits=5, default=0.0)
 
 	@receiver(post_save, dispatch_uid='<article_entity_id>')
 	def increment_entity_occurence_count(sender, instance, created, raw,using, update_fields, **kwargs):
