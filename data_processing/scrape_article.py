@@ -48,7 +48,11 @@ SCRAPE_FUNCS = {
 def _scrape_text(url, sourceId):
     # url = "http://fortune.com/2018/01/20/google-ceo-has-no-regrets-about-firing-author-of-anti-diversity-memo/"
     # sourceId = "fortune"
-    html = web.get(url).content
+    res = web.get(url)
+    if res == None:
+        return None
+
+    html = res.content
     soup = BeautifulSoup(html, 'html.parser')
 
     if sourceId in SCRAPE_FUNCS:
@@ -57,7 +61,7 @@ def _scrape_text(url, sourceId):
         return text
     else:
         print("ERR: No scraper implemented for source-id = {}".format(sourceId))
-        return soup.body.get_text()
+        return None
 
 class ScrapeData:
     def fromJson(jsonDict):
@@ -99,6 +103,9 @@ def scrape(articleJson):
     sourceId = articleJson["source"]["id"]
     url = articleJson["url"]
     text = _scrape_text(url=url, sourceId=sourceId)
+    if text == None:
+        return None
+
     return ScrapeData(textData=text,
                       title=articleJson["title"],
                       sourceId=sourceId,
