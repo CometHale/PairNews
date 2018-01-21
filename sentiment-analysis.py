@@ -18,7 +18,9 @@ def main():
 	# create documents out of each article
 	for lst in topicsList:
 
-		event, created = Event.objects.get_or_create(name=lst[0]['title']) #create the 
+		date = datetime.strptime(lst[0]['publishDate'][0:9], '%Y-%m-%d')
+		event, created = Event.objects.get_or_create(name=lst[0]['title'], start_date=date, end_date=date) #create the 
+		
 		if created:
 			print("~~~~~~~~~~~~~~~~~~~~~~~~~~ NEW TOPIC:" + lst[0]['title'] + " ~~~~~~~~~~~~~~~~~~~~~~~~~~" )
 		
