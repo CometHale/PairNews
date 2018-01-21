@@ -13,6 +13,7 @@ function makeProgress(isPositive, nodeName) {
     strokeWidth: 6,
     trailWidth: 1,
     easing: 'easeInOut',
+    trailColor: '#B2B2B2',
     duration: 1400,
     text: {
       autoStyleContainer: false
@@ -109,40 +110,38 @@ function toggleHidden(node1Id, node2Id) {
   	</a>
 		</div>
 
-
-
-
 		<div class="row collapse" id="row-{{row.id}}-expanded">
-			This is a bunch of hidden stuff!
-			<br />
-			This is a bunch of hidden stuff!
-			<br />
-			This is a bunch of hidden stuff!
-			<br />
-			This is a bunch of hidden stuff!
-			<br />
-			This is a bunch of hidden stuff!
-			<br />
-			This is a bunch of hidden stuff!
-			<br />
-			This is a bunch of hidden stuff!
-			<br />
-			This is a bunch of hidden stuff!
-			<br />
-			This is a bunch of hidden stuff!
-			<br />
-			This is a bunch of hidden stuff!
-			<br />
-			This is a bunch of hidden stuff!
-			<br />
-			This is a bunch of hidden stuff!
-			<br />
-			This is a bunch of hidden stuff!
-			<br />
-			This is a bunch of hidden stuff!
-			<br />
-			This is a bunch of hidden stuff!
-			<br />			
+			{% for event_id, art_querysets in other_articles.items %}
+        {% if key == event_id %}
+          <div class="row" id="row-{{row.id}}">
+              {% for article in art_querysets.0 %}
+                 <div class="col-xs-sm-md-lg-6 positive">
+                    <div class="text">
+                      <div class="wrapper">
+                        <div id="circle-placeholder-{{article.id}}" class="progress-container"></div>
+                        <div id="{{article.id}}-title" class="sub-article-title"><a href='{{article.url}}'>{{article.title}}</a></div>
+                      </div>
+                        <div id="{{article.id}}-sentiment" class="sub-article-sentiment">{{article.overall_sentiment}}</div>
+                        <div id="{{article.id}}-source" class="sub-article-source">{{ article.news_source.name }}</div>
+                    </div>
+                  </div>
+              {% endfor %}
+
+            {% for article in art_querysets.1 %}
+                 <div class="col-xs-sm-md-lg-6 negative">
+                    <div class="text">
+                      <div class="wrapper">
+                        <div id="circle-placeholder-{{article.id}}" class="progress-container"></div>
+                        <div id="{{article.id}}-title" class="sub-article-title"><a href='{{article.url}}'>{{article.title}}</a></div>
+                      </div>
+                        <div id="{{article.id}}-sentiment" class="sub-article-sentiment">{{article.overall_sentiment}}</div>
+                        <div id="{{article.id}}-source" class="sub-article-source">{{ article.news_source.name }}</div>
+                    </div>
+                  </div>
+              {% endfor %}
+          </div>
+        {%endif%}
+      {% endfor%}
 		</div>
 
 
