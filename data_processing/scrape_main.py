@@ -2,6 +2,7 @@ import math
 import web as web
 import json
 import signal
+import re
 from scrape_article import scrape, ScrapeData
 
 class GracefulKiller:
@@ -31,6 +32,25 @@ with open("scrape_store.json", "r") as storeFile:
 
 def filter_not_in_urls(articleJsons, urlSet):
     return [article for article in articleJsons if article["url"] not in urlSet]
+
+
+urlBlacklist = [
+    re.compile(r".*usatoday\.com/story/sports/.*"),
+    re.compile(r".*ftw\.usatoday.*"),
+    re.compile(r".*usatoday\.com/picture-gallery/.*"),
+    re.compile(r".*/video/.*"),
+    re.compile(r".*/videos/.*"),
+    re.compile(r".*video\.foxnews\.com"),
+]
+
+def matches_none(url, reList):
+    for r in reList:
+        if r.match(url) != None:
+            return False
+    return True
+
+def filter_junk_urls(articleJsons):
+    return [article for article in articleJsons if matches_none(article["url"], urlBlacklist)]
 
 
 businessSourcesUrl = 'https://newsapi.org/v2/sources?country=us&language=en&category=business&apiKey={}'.format(API_KEY)
@@ -65,7 +85,7 @@ for batch in range(numBatches):
     if PAGE_LIMIT != -1:
         numPages = min(numPages, PAGE_LIMIT)
 
-    allArticleJsons += filter_not_in_urls(response["articles"], urlSet)
+    allArticleJsons += filter_junk_urls(filter_not_in_urls(response["articles"], urlSet))
 
     for page in range(2, numPages+1):
         print("Downloading page {} / {}".format(page, numPages))
@@ -75,7 +95,7 @@ for batch in range(numBatches):
             ids_csv,
             API_KEY)
         response = web.get(everythingUrl, shouldCache=False).json()
-        allArticleJsons += filter_not_in_urls(response["articles"], urlSet)
+        allArticleJsons += filter_junk_urls(filter_not_in_urls(response["articles"], urlSet))
 
 # print(len(allArticleJsons))
 

@@ -38,11 +38,17 @@ def __scrape_politico(soup):
     mainStoryTag = __match_tag(soup, "div", idName=None, className="story-text")[0]
     return "\n".join([tag.get_text() for tag in mainStoryTag.find_all("p")])
 
+def __scrape_breitbart(soup):
+    mainMatches = __match_tag(soup, "div", idName=None, className="entry-content")
+    textMatches = map(lambda mainStoryTag: "\n".join([tag.get_text() for tag in mainStoryTag.find_all("p")]), mainMatches)
+    return textMatches
+
 
 SCRAPE_FUNCS = {
     "fortune" : __scrape_fortune,
     "the-hill" : __scrape_the_hill,
-    "politico" : __scrape_politico
+    "politico" : __scrape_politico,
+    "breitbart-news": __scrape_breitbart,
 }
 
 def _scrape_text(url, sourceId):
