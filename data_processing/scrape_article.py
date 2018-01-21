@@ -30,6 +30,7 @@ SCRAPE_PATTERNS = {
 
 def _scrape_text(url, sourceId):
     # url = "http://fortune.com/2018/01/20/google-ceo-has-no-regrets-about-firing-author-of-anti-diversity-memo/"
+    # sourceId = "fortune"
     html = web.get(url).content
     soup = BeautifulSoup(html, 'html.parser')
 
@@ -40,9 +41,27 @@ def _scrape_text(url, sourceId):
         return __largest_text(m)
     else:
         print("ERR: No scraper implemented for source-id = {}".format(sourceId))
-        return html
+        return soup.body.get_text()
 
 class ScrapeData:
+    def fromJson(jsonDict):
+        return ScrapeData(jsonDict["textData"],
+                          jsonDict["title"],
+                          jsonDict["sourceId"],
+                          jsonDict["sourceName"],
+                          jsonDict["url"],
+                          jsonDict["publishDate"])
+
+    def toJson(self):
+        return {
+            "textData": self.textData,
+            "title": self.title,
+            "sourceId": self.sourceId,
+            "sourceName": self.sourceName,
+            "url": self.url,
+            "publishDate": self.publishDate
+        }
+
     def __init__(self, textData, title, sourceId, sourceName, url, publishDate):
         self.textData = textData
         self.title = title
