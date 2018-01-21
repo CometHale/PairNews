@@ -1,12 +1,14 @@
 # usr/bin/python3
 from google.cloud import language
 import json
+import time
 from datetime import datetime
 from decimal import Decimal
 from similarity.ParseMatrix import get_topics_list 
 from gotnews_app.models import (Event, Entity, Article, NewsSource, NewsSourceEntityAssoc, ArticleEntityAssoc)
 
 def main():
+	start = time.time()
 	# intialize google-cloud language client
 	client = language.LanguageServiceClient()
 
@@ -15,9 +17,11 @@ def main():
 		textArr = json.load(file)
 		topicsList = get_topics_list(textArr)
 
-	# create documents out of each article
-	for lst in topicsList:
 
+	article_process_id = 0;
+	# create documents out of each article
+	for lst_count, lst in enumerate(topicsList):
+		print("Current Topic ID" + str(lst_count) + "\n")
 		date = datetime.strptime(lst[0]['publishDate'][0:9], '%Y-%m-%d')
 		event, created = Event.objects.get_or_create(name=lst[0]['title'], start_date=date, end_date=date) #create the 
 		
@@ -25,8 +29,10 @@ def main():
 			print("~~~~~~~~~~~~~~~~~~~~~~~~~~ NEW TOPIC:" + lst[0]['title'] + " ~~~~~~~~~~~~~~~~~~~~~~~~~~" )
 		
 		for article in lst:
+			print("Current Article ID:" + str(article_process_id) + "\n")
+			article_process_id += 1
 
-			print("!!!!!!!!!!!!!!!!!!!!!!!!!!!! NEW ARTICLE !!!!!!!!!!!!!!!!!!!!!!!!!!")
+			# print("!!!!!!!!!!!!!!!!!!!!!!!!!!!! NEW ARTICLE !!!!!!!!!!!!!!!!!!!!!!!!!!")
 			document = language.types.Document(
 				content=article['textData'],
 				language='en',
@@ -54,8 +60,8 @@ def main():
 			for entity in response.entities:
 				# Get-Or-Create Django Entity, ArticleEntityAssoc & set sentiment
 				new_entity, created = Entity.objects.get_or_create(name=entity.name)
-				if created:
-					print("<--------------" + entity.name + " ------------------>")
+				# if created:
+				# 	print("<--------------" + entity.name + " ------------------>")
 
 				news_assoc, created = NewsSourceEntityAssoc.objects.get_or_create(news_source=news_source, entity=new_entity)
 				article_assoc, created = ArticleEntityAssoc.objects.get_or_create(article=article, entity=new_entity)
@@ -73,7 +79,6 @@ def main():
 					news_assoc.save()
 					article_assoc.save()
 
-
-
-
+	end = start = time.time()
+	print("Time Elapsed:::::" + end - start)
 main()
