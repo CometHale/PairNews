@@ -1,5 +1,6 @@
 # usr/bin/python3
 from google.cloud import language
+# from gotnews_app.models import (Event, Entity, Article, NewsSource, NewsSourceEntityAssoc, ArticleEntityAssoc)
 
 def main():
 	# intialize google-cloud language client
@@ -24,7 +25,12 @@ def main():
 	# create documents out of each article
 	for i in practice_matrix_data:
 		print(practice_article_data[i])
-		# Create Django Article bbject
+		# create Django Event object
+		# event = Event.objects.create()
+
+		# Create Django Article object
+		# article = Article.objects.create()
+
 		document = language.types.Document(
 			content=practice_article_data[i],
 			language='en',
@@ -42,12 +48,14 @@ def main():
 		# Assign Article's overall sentiment
 		response = client.analyze_sentiment(document=document,  encoding_type='UTF32')
 		print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + str(response.document_sentiment) + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-
+		# article.sentiment = response.document_sentiment.magnitude
+		# article.save()
 
 		# get sentimental entities
 		response = client.analyze_entity_sentiment(document=document,  encoding_type='UTF32')
 		for entity in response.entities:
 			# Get-Or-Create Django Entity, ArticleEntityAssoc & set sentiment
+			# entity = Entity.objects.get_or_create()
 			# Do some averaging for the NewsSourceEntityAssoc sentiment value
 			print("###################### " + entity.name + " sentiment:" + str(entity.sentiment.magnitude) + " ###################")
 
