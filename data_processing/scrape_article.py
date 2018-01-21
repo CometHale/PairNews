@@ -25,7 +25,18 @@ SCRAPE_PATTERNS = {
         "tagName" : "div",
         "idName" : "article-body",
         "className" : True
-    }
+    },
+    "the-hill" : {
+        "tagName" : "div",
+        "idName" : True,
+        "className" : "field-items"
+    },
+    "politico" : {
+        "tagName" : "div",
+        "idName" : True,
+        "className" : "story-text"
+    },
+
 }
 
 def _scrape_text(url, sourceId):
