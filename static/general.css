@@ -30,14 +30,29 @@ div.row{
 	box-shadow: 2px 3px 1px #888888;
 }
 
+div.collapsible-row{
+	width:70%;
+	margin:15px auto;
+	font-size: 10px;
+	/*box-shadow: 2px 3px 1px #888888;*/
+}
+
 div.expand-row{
 	width:90%;
+	margin:30px auto;
+	height:25vh;
+}
+
+div.expand-col-xs-sm-md-lg-6{
+	width:50%;
+	float:left;
+	height:25vh;
 }
 
 div.col-xs-sm-md-lg-6{
 	width:50%;
+	float:left;
 	height:25vh;
-
 }
 
 div.col-xs-sm-md-lg-6.positive{
