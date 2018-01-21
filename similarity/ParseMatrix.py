@@ -2,8 +2,8 @@ from TextSimilar import cosine_sim
 from numpy import argmax
 import json
 
-with open('../data_processing/scrape_store.json') as json_file:
-  textArr = json.load(json_file)
+with open('../data_processing/scrape_store.json') as file:
+  textArr = json.load(file)
 
 testList = []
 for article in textArr:
