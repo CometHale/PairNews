@@ -112,7 +112,8 @@ for batch in range(numBatches):
             ids_csv,
             API_KEY)
         response = web.get(everythingUrl, shouldCache=False).json()
-        allArticleJsons += filter_junk_urls(filter_not_in_urls(response["articles"], urlSet))
+        if "articles" in response:
+            allArticleJsons += filter_junk_urls(filter_not_in_urls(response["articles"], urlSet))
 
 # print(len(allArticleJsons))
 
