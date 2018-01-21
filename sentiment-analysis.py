@@ -50,7 +50,7 @@ def main():
 				# Create Django Article object
 				date = datetime.strptime(article['publishDate'][0:9], '%Y-%m-%d')
 				response = client.analyze_sentiment(document=document,  encoding_type='UTF32')
-				overall_sentiment = response.document_sentiment.magnitude * response.document_sentiment.score
+				overall_sentiment = 100 * response.document_sentiment.score
 
 				news_source, created = NewsSource.objects.get_or_create(name=article['sourceName'])
 				title = article['title']
@@ -72,11 +72,11 @@ def main():
 					news_article_count = NewsSourceEntityAssoc.objects.filter(entity=new_entity, news_source=news_source).count()
 					if not created:
 						old_news_sentiment = news_assoc.sentiment * (news_article_count - 1)
-						new_news_sentiment = old_news_sentiment + Decimal(entity.sentiment.magnitude * entity.sentiment.score)
+						new_news_sentiment = old_news_sentiment + Decimal(100 * entity.sentiment.score)
 						news_assoc.sentiment = new_news_sentiment / news_article_count
 						
 						old_article_sentiment = article_assoc.sentiment * (article_count - 1)
-						new_article_sentiment = old_article_sentiment + Decimal(entity.sentiment.magnitude * entity.sentiment.score)
+						new_article_sentiment = old_article_sentiment + Decimal(100 * entity.sentiment.score)
 						article_assoc.sentiment = new_article_sentiment / article_count
 						news_assoc.save()
 						article_assoc.save()
