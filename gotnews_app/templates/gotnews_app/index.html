@@ -7,7 +7,7 @@ function makeProgress(isPositive, nodeName) {
 	var toColor = isPositive ? "#3c3" : "#c33"
   
   var progressBar = new ProgressBar.Circle("#" + nodeName, {
-    color: '#aaa',
+    color: toColor,
     // This has to be the same size as the maximum width to
     // prevent clipping
     strokeWidth: 6,
@@ -17,7 +17,7 @@ function makeProgress(isPositive, nodeName) {
     text: {
       autoStyleContainer: false
     },
-    from: { color: '#cc3', width: 6 },
+    from: { color: toColor, width: 6 },
     to: { color: toColor, width: 6 },
 
 
@@ -53,6 +53,13 @@ function makeProgress(isPositive, nodeName) {
   width: 100px;
   height: 100px;
   position: relative;
+}
+.flipped {
+  -moz-transform: scale(-1, 1);
+  -webkit-transform: scale(-1, 1);
+  -o-transform: scale(-1, 1);
+  -ms-transform: scale(-1, 1);
+  transform: scale(-1, 1);
 }
 </style>
 
