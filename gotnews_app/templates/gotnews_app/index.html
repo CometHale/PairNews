@@ -2,6 +2,64 @@
 
 {% block content %}
 
+<script type="text/javascript">
+function makeProgress(isPositive, nodeName) {
+	var toColor = isPositive ? "#3c3" : "#c33"
+  
+  var progressBar = new ProgressBar.Circle("#" + nodeName, {
+    color: '#aaa',
+    // This has to be the same size as the maximum width to
+    // prevent clipping
+    strokeWidth: 6,
+    trailWidth: 1,
+    easing: 'easeInOut',
+    duration: 1400,
+    text: {
+      autoStyleContainer: false
+    },
+    from: { color: '#cc3', width: 6 },
+    to: { color: toColor, width: 6 },
+
+
+    // Set default step function for all animate calls
+    step: function(state, circle) {
+      circle.path.setAttribute('stroke', state.color);
+      circle.path.setAttribute('stroke-width', state.width);
+
+      var value = Math.round(circle.value() * 100);
+      if (value === 0) {
+        circle.setText('');
+      } else {
+      	if(isPositive == false) {
+        	circle.setText('<div class="flipped">' + Math.abs(value) + '</div>');
+      	} else {
+          circle.setText('<div class="">' + Math.abs(value) + '</div>');
+		}
+      }
+    }
+  });
+  
+  if(isPositive == false) {
+  	var node = document.getElementById(nodeName)
+  	node.classList.add("flipped")
+  }
+
+
+  return progressBar
+}
+</script>
+
+<style>
+.progress-container {
+  margin: 20px;
+  width: 100px;
+  height: 100px;
+  position: relative;
+}
+</style>
+
+
+
 {# --------------- BEGIN FOR LOOP ----------- #}
 
 {% for row in numbers %}
@@ -12,24 +70,49 @@
 
 			<div class="col-xs-sm-md-lg-6 positive">
 		        <div id="{{val.1.id}}-title" class="sub-article-title">{{val.1.title}}</div>
-		        <div class="circle-placeholder"></div>
+		        <div id="circle-placeholder-{{val.1.id}}" class="progress-container"></div>
 		        <div id="{{val.1.id}}-sentiment" class="sub-article-sentiment">{{val.1.overall_sentiment}}</div>
 		        <div id="{{val.1.id}}-source" class="sub-article-source">{{ val.1.news_source.name }}</div>
 		    </div>
 
 		    <div class="col-xs-sm-md-lg-6 negative">
 		        <div id="{{val.0.id}}" class="sub-article-title">{{val.0.title}}</div>
-		        <div class="circle-placeholder"></div>
+		        <div id="circle-placeholder-{{val.0.id}}" class="progress-container"></div>
 		        <div id="{{val.0.id}}-sentiment" class="sub-article-sentiment">{{val.0.overall_sentiment}}</div>
 		        <div id="{{val.0.id}}-source" class="sub-article-source">{{ val.0.news_source.name }}</div>
 		    </div>
 
 		</div>
+
+		<script type="text/javascript">
+			var sent0 = {{val.0.overall_sentiment}} / 100
+			var pos0 = sent0 >= 0
+			var barId0 = "circle-placeholder-{{val.0.id}}"
+			var bar0 = makeProgress(pos0, barId0)
+			bar0.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
+			bar0.text.style.fontSize = '2rem';
+
+			bar0.animate(Math.abs(sent0));  // Number from 0.0 to 1.0
+
+
+			var sent1 = {{val.1.overall_sentiment}} / 100
+			var pos1 = sent1 >= 0
+			var barId1 = "circle-placeholder-{{val.1.id}}"
+			var bar1 = makeProgress(pos1, barId1)
+			bar1.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
+			bar1.text.style.fontSize = '2rem';
+
+			bar1.animate(Math.abs(sent1));  // Number from 0.0 to 1.0
+			
+		</script>
+
 		{% endif %}
 	{% endfor %}
 {# event_dict[event.id][0] #}
 
 {% endfor %}
+
+
 
 <div class="pagination">
     <span class="step-links">
