@@ -4,13 +4,31 @@
 
 {# --------------- BEGIN FOR LOOP ----------- #}
 
-{% for i in numbers %}
-<div class="row">
-  <div class="col-xs-sm-md-lg-6 positive">
-  </div>
-  <div class="col-xs-sm-md-lg-6 negative">
-  </div>
-</div>
+{% for row in numbers %}
+
+	{% for key, val in events_dict.items %}
+		{% if key == row.id %}
+		<div class="row">
+
+			<div class="col-xs-sm-md-lg-6 positive">
+		        <div id="{{val.0.id}}-title" class="sub-article-title">{{val.0.title}}</div>
+		        <div class="circle-placeholder"></div>
+		        <div id="{{val.0.id}}-sentiment" class="sub-article-sentiment">{{val.0.overall_sentiment}}</div>
+		        <div id="{{val.0.id}}-source" class="sub-article-source">{{ val.0.news_source.name }}</div>
+		    </div>
+
+		    <div class="col-xs-sm-md-lg-6 negative">
+		        <div id="{{val.1.id}}" class="sub-article-title">{{val.1.title}}</div>
+		        <div class="circle-placeholder"></div>
+		        <div id="{{val.1.id}}-sentiment" class="sub-article-sentiment">{{val.1.overall_sentiment}}</div>
+		        <div id="{{val.1.id}}-source" class="sub-article-source">{{ val.1.news_source.name }}</div>
+		    </div>
+
+		</div>
+		{% endif %}
+	{% endfor %}
+{# event_dict[event.id][0] #}
+
 {% endfor %}
 
 <div class="pagination">

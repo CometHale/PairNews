@@ -1,0 +1,17 @@
+{% for row in article_rows %}
+<div>
+    <div class="positive">
+        <div id="{{row.0.id}}-title" class="sub-article-title">{{row.0.title}}</div>
+        <div class="circle-placeholder"></div>
+        <div id="{{row.0.id}}-sentiment" class="sub-article-sentiment">{{row.0.overall_sentiment}}</div>
+        <div id="{{row.0.id}}-source" class="sub-article-source">{{ row.0.news_source.name }}</div>
+    </div>
+
+    <div class="negative">
+        <div id="{{row.1.id}}" class="sub-article-title">{{row.1.title}}</div>
+        <div class="circle-placeholder"></div>
+        <div id="{{row.1.id}}-sentiment" class="sub-article-sentiment">{{row.1.overall_sentiment}}</div>
+        <div id="{{row.1.id}}-source" class="sub-article-source">{{ row.1.news_source.name }}</div>
+    </div>
+</div>
+{% endfor %}

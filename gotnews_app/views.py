@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.db.models import Max, Min
 from django.http import HttpResponse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import (Event, Entity, NewsSource, Article, NewsSourceEntityAssoc, ArticleEntityAssoc)
 
 
@@ -20,11 +21,19 @@ def index(request):
         most_negative = articles[articles.count() - 1]
         # most_positive = event.articles_related.filter(sentiment=event.max_sentiment).order_by('-date')
         # most_negative = event.articles_related.filter(sentiment=event.min_sentiment).order_by('-date')
-        # events_dict[event.id] = [most_positive, most_negative]
+        events_dict[event.id] = [most_positive, most_negative]
+        for article in articles:
+            print(article.title)
+        # print("<-----------------------")
+        # print(articles.count())
 
-    numbers_list = range(1, 50)
-    paginator = Paginator(numbers_list, 7)
+        # arts = Article.objects.filter(event=event)
+        # print(arts.count())
+        # print("<-----------------------")
 
+    # numbers_list = range(1, 50)
+    paginator = Paginator(events, 7)
+      
     page = request.GET.get('page')
     numbers = paginator.get_page(page) #replace numbers_list and numbers with actual articles
     
@@ -36,12 +45,35 @@ def index(request):
 
     #Pair the articles with the most positive and negative sentiments
 
-    context = {}
-    return render(request,"gotnews_app/index.html", {'numbers':numbers,  'context': context})
+    # print(numbers)
+    context = {
+        'events_dict':events_dict,
+        'numbers':numbers,
+    }
+    return render(request,"gotnews_app/index.html", context)
 
 def expand_row(request):
     """
     This will grab and return all data for row expansion.
     """
-    # will need the id of the article in question
-    return HttpResponse("This will return the data to expand a row with.")
+    most_positive_id = request.POST['most_positive_id']
+    most_negative_id = request.POST['most_negative_id']
+
+    most_positive_article = Article.objects.get(id=most_positive_id)
+    most_negative_article = Article.objects.get(id=most_negative_id)
+
+    event = most_positive_article.event
+
+    other_articles = Article.objects.filter(event=event).exclude(id__in=[most_positive_id, most_negative_id]).order_by('overall_sentiment')
+    positive_articles = other_articles[0:int(floor(other_articles.count() / 2))]
+    negative_articles = other_articles[int(floor(other_articles.count() / 2)): other_articles.count() - 1]
+    article_rows = [positive_articles, negative_articles]
+
+    context = {
+        'article_rows':article_rows
+    }
+
+    return render(request, 'gotnews_app/expand_row.html', context)
+
+def entity_index(request):
+    return HttpResponse("This will be the example entity index")

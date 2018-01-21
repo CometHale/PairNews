@@ -56,7 +56,8 @@ urlBlacklist = [
     re.compile(r".*reuters.*/sportsNews/.*"),
     re.compile(r".*reuters.*/us-mma-.*"),
     re.compile(r".*abc.*/shows/.*"),
-
+    re.compile(r".*\.mp3"),
+    re.compile(r".*\.mp4"),
 ]
 
 def matches_none(url, reList):
@@ -112,7 +113,8 @@ for batch in range(numBatches):
             ids_csv,
             API_KEY)
         response = web.get(everythingUrl, shouldCache=False).json()
-        allArticleJsons += filter_junk_urls(filter_not_in_urls(response["articles"], urlSet))
+        if "articles" in response:
+            allArticleJsons += filter_junk_urls(filter_not_in_urls(response["articles"], urlSet))
 
 # print(len(allArticleJsons))
 
