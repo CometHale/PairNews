@@ -29,7 +29,6 @@ with open("scrape_store.json", "r") as storeFile:
     urls = [data.url for data in store]
     urlSet = set(urls)
 
-
 def filter_not_in_urls(articleJsons, urlSet):
     return [article for article in articleJsons if article["url"] not in urlSet]
 
@@ -41,6 +40,7 @@ urlBlacklist = [
     re.compile(r".*/video/.*"),
     re.compile(r".*/videos/.*"),
     re.compile(r".*video\.foxnews\.com"),
+    re.compile(r".*www\.wsj\.com.*")
 ]
 
 def matches_none(url, reList):
