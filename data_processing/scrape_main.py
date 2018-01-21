@@ -44,6 +44,8 @@ generalIds = [source["id"] for source in generalSourcesJson["sources"]]
 
 allIds = businessIds + generalIds
 allIds.remove("google-news")
+allIds.remove("reddit-r-all")
+
 
 numBatches = int(math.ceil(len(allIds) / 20))
 
