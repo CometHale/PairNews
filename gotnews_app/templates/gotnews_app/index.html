@@ -7,7 +7,7 @@ function makeProgress(isPositive, nodeName) {
 	var toColor = isPositive ? "#3c3" : "#c33"
   
   var progressBar = new ProgressBar.Circle("#" + nodeName, {
-    color: '#aaa',
+    color: toColor,
     // This has to be the same size as the maximum width to
     // prevent clipping
     strokeWidth: 6,
@@ -17,7 +17,7 @@ function makeProgress(isPositive, nodeName) {
     text: {
       autoStyleContainer: false
     },
-    from: { color: '#cc3', width: 6 },
+    from: { color: toColor, width: 6 },
     to: { color: toColor, width: 6 },
 
 
@@ -43,6 +43,8 @@ function makeProgress(isPositive, nodeName) {
 
   return progressBar
 }
+
+
 </script>
 
 <style>
@@ -51,6 +53,13 @@ function makeProgress(isPositive, nodeName) {
   width: 100px;
   height: 100px;
   position: relative;
+}
+.flipped {
+  -moz-transform: scale(-1, 1);
+  -webkit-transform: scale(-1, 1);
+  -o-transform: scale(-1, 1);
+  -ms-transform: scale(-1, 1);
+  transform: scale(-1, 1);
 }
 </style>
 
@@ -85,7 +94,7 @@ function makeProgress(isPositive, nodeName) {
 	        <div id="{{val.0.id}}-source" class="sub-article-source">{{ val.0.news_source.name }}</div>
         </div>
 	    </div>
-
+      <button href="{% url 'expand_row' %}"> Expand </button>
 		</div>
 
 		<script type="text/javascript">
@@ -136,13 +145,5 @@ function makeProgress(isPositive, nodeName) {
     </span>
 </div>
 
-<script type="text/javascript">
-(window).scroll(function() {
-	console.log("hi");
-   // if(Jquery.(window).scrollTop() + Jquery.(window).height() == Jquery.(document).height()){
-   //     alert("bottom!");
-   // }
-});
-</script>
 {# --------------- END FOR LOOP   ----------- #}
 {% endblock content %}

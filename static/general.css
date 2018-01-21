@@ -27,7 +27,7 @@ div#content{
 div.row{
 	width:70%;
 	margin:10px auto;
-	/*box-shadow: 5px 10px;*/
+	box-shadow: 5px 10px;
 }
 
 div.col-xs-sm-md-lg-6{
