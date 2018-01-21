@@ -117,52 +117,50 @@ function toggleHidden(node1Id, node2Id) {
 			{% for event_id, art_querysets in other_articles.items %}
         {% if key == event_id %}
           <div class="expand-row" id="row-{{row.id}}">
-            {% for article in art_querysets.1 %}
-                 <div class="col-xs-sm-md-lg-6 positive collapsed_list">
+              {% for article in art_querysets %}
+                <div class="expand-col-xs-sm-md-lg-6 positive">
                     <div class="text">
                       <div class="wrapper">
-                        <div id="circle-placeholder-{{article.id}}" class="progress-container"></div>
-                        <div id="{{article.id}}-title" class="sub-article-title"><a href='{{article.url}}'>{{article.title}}</a></div>
+                        <div id="circle-placeholder-{{article.0.id}}" class="progress-container"></div>
+                        <div id="{{article.0.id}}-title" class="sub-article-title"><a href='{{article.0.url}}'>{{article.0.title}}</a></div>
                       </div>
-                        <div id="{{article.id}}-sentiment" class="sub-article-sentiment">{{article.overall_sentiment}}</div>
-                        <div id="{{article.id}}-source" class="sub-article-source">{{ article.news_source.name }}</div>
+                        <div id="{{article.0.id}}-sentiment" class="sub-article-sentiment">{{article.0.overall_sentiment}}</div>
+                        <div id="{{article.0.id}}-source" class="sub-article-source">{{ article.0.news_source.name }}</div>
                     </div>
                   </div>
 
-
-                <script type="text/javascript">
-                  var sent0 = {{article.overall_sentiment}} / 100
-                  var pos0 = sent0 >= 0
-                  var barId0 = "circle-placeholder-{{article.id}}"
-                  var bar0 = makeProgress(pos0, barId0)
-                  bar0.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
-                  bar0.text.style.fontSize = '2rem';
-
-                  bar0.animate(Math.abs(sent0));  // Number from 0.0 to 1.0
-                </script>
-              {% endfor %}
-
-              {% for article in art_querysets.0 %}
-                 <div class="col-xs-sm-md-lg-6 negative collapsed_list">
+                  <div class="expand-col-xs-sm-md-lg-6 negative">
                     <div class="text">
                       <div class="wrapper">
-                        <div id="circle-placeholder-{{article.id}}" class="progress-container"></div>
-                        <div id="{{article.id}}-title" class="sub-article-title"><a href='{{article.url}}'>{{article.title}}</a></div>
+                        <div id="circle-placeholder-{{article.1.id}}" class="progress-container"></div>
+                        <div id="{{article.1.id}}-title" class="sub-article-title"><a href='{{article.1.url}}'>{{article.1.title}}</a></div>
                       </div>
-                        <div id="{{article.id}}-sentiment" class="sub-article-sentiment">{{article.overall_sentiment}}</div>
-                        <div id="{{article.id}}-source" class="sub-article-source">{{ article.news_source.name }}</div>
+                        <div id="{{article.1.id}}-sentiment" class="sub-article-sentiment">{{article.1.overall_sentiment}}</div>
+                        <div id="{{article.1.id}}-source" class="sub-article-source">{{ article.1.news_source.name }}</div>
                     </div>
                   </div>
               
                 <script type="text/javascript">
-                  var sent0 = {{article.overall_sentiment}} / 100
+                  var sent0 = {{article.0.overall_sentiment}} / 100
                   var pos0 = sent0 >= 0
-                  var barId0 = "circle-placeholder-{{article.id}}"
+                  var barId0 = "circle-placeholder-{{article.0.id}}"
                   var bar0 = makeProgress(pos0, barId0)
                   bar0.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
                   bar0.text.style.fontSize = '2rem';
 
                   bar0.animate(Math.abs(sent0));  // Number from 0.0 to 1.0
+
+
+                  var sent1 = {{article.1.overall_sentiment}} / 100
+                  var pos1 = sent1 >= 0
+                  var barId1 = "circle-placeholder-{{article.1.id}}"
+                  var bar1 = makeProgress(pos1, barId1)
+                  bar1.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
+                  bar1.text.style.fontSize = '2rem';
+
+                  bar1.animate(Math.abs(sent1));  // Number from 0.0 to 1.0
+                  
+
                 </script>
               {% endfor %}
           </div>
