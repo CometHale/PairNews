@@ -44,6 +44,7 @@ def index(request):
     # article_entity_assocs = ArticleEntityAssoc.objects.all().order_by('-sentiment')
 
     #Pair the articles with the most positive and negative sentiments
+
     # print(numbers)
     context = {
         'events_dict':events_dict,
