@@ -27,12 +27,11 @@ function makeProgress(isPositive, nodeName) {
       circle.path.setAttribute('stroke-width', state.width);
 
       var value = Math.round(circle.value() * 100);
-      	if(isPositive == false) {
-        	circle.setText('<div class="flipped">' + Math.abs(value) + '</div>');
-      	} else {
-          circle.setText('<div class="">' + Math.abs(value) + '</div>');
+	  	if(isPositive == false) {
+	    	circle.setText('<div class="flipped">' + Math.abs(value) + '</div>');
+	  	} else {
+	      circle.setText('<div class="">' + Math.abs(value) + '</div>');
 		}
-      }
     }
   });
   
