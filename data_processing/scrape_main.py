@@ -43,10 +43,14 @@ urlBlacklist = [
     re.compile(r".*www\.wsj\.com.*"),
     re.compile(r".*overwatchwire\.usatoday\.com.*"),
     re.compile(r".*reuters\.com.*/soccer-portugal-standings/.*"),
-    re.compile(r".*reuters\.com.*/us-tennis-ausopen-.*/.*"),
+    re.compile(r".*reuters\.com.*/.*-tennis-ausopen-.*/.*"),
     re.compile(r".*reuters\.com.*/us-olympics-2018-sno-.*/.*"),
     re.compile(r".*washingtonpost\.com/sports/.*"),
-    re.compile(r".*washingtonpost\.com/news/capital-weather-gang/.*")
+    re.compile(r".*washingtonpost\.com/news/capital-weather-gang/.*"),
+    re.compile(r".*abcnews.*/Sports/.*"),
+    re.compile(r".*reuters.*/sportsNews/.*"),
+    re.compile(r".*reuters.*/us-mma-.*"),
+    re.compile(r".*abc.*/shows/.*")
 ]
 
 def matches_none(url, reList):
@@ -111,7 +115,12 @@ numArticles = len(allArticleJsons)
 
 for articleNum in range(numArticles):
     articleJson = allArticleJsons[articleNum]
-    scrapedData = scrape(articleJson)
+
+    try:
+        scrapedData = scrape(articleJson)
+    except Exception as err:
+        print("ERR: Error scraping article = {}, error = {}".format(articleJson, err))
+        scrapedData = None
 
     if scrapedData != None:
         jsonStore.append(scrapedData.toJson())

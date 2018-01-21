@@ -10,6 +10,9 @@ def get(url, shouldCache=True):
 
     try:
         response = requests.get(url)
+        if response.status_code == 404:
+            print("ERR: could not fetch url = {}".format(url))
+            return None
     except Exception as err:
         print("ERR: could not fetch url = {}, err = {}".format(url, err))
         return None
