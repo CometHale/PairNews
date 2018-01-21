@@ -3,7 +3,12 @@ import web as web
 import json
 import signal
 import re
+import argparse
 from scrape_article import scrape, ScrapeData
+
+parser = argparse.ArgumentParser()
+parser.add_argument('PAGE_LIMIT', type=int, default=1, nargs='?')
+args = parser.parse_args()
 
 class GracefulKiller:
     kill_now = False
@@ -16,7 +21,7 @@ class GracefulKiller:
 
 
 PAGE_SIZE = 100
-PAGE_LIMIT = 1
+PAGE_LIMIT = args.PAGE_LIMIT
 
 # Read News API key
 with open("newsapikey.txt", "r") as apiFile:
