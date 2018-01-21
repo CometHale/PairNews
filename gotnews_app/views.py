@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.db.models import Max, Min, Count
-from math import floor
+from math import ceil
 from django.http import HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import (Event, Entity, NewsSource, Article, NewsSourceEntityAssoc, ArticleEntityAssoc)
@@ -18,6 +18,8 @@ def index(request):
 
     # grab the articles for each event that had the max 
     for event in events:
+
+        
         articles = event.articles_related.all().order_by('overall_sentiment')
         most_positive = articles[0]
         most_negative = articles[articles.count() - 1]
@@ -33,8 +35,9 @@ def index(request):
         event = most_positive_article.event
 
         other_articles = Article.objects.filter(event=event).exclude(id__in=[most_positive_id, most_negative_id]).order_by('overall_sentiment')
-        positive_articles = other_articles[0:int(floor(other_articles.count() / 2))]
-        negative_articles = other_articles[int(floor(other_articles.count() / 2)): other_articles.count() - 1]
+        positive_articles = other_articles[0:int(ceil(other_articles.count() / 2))]
+        # print(len(positive_articles))
+        negative_articles = other_articles[int(ceil(other_articles.count() / 2)): other_articles.count() - 1]
         expand_rows[event.id] = list(zip(positive_articles, negative_articles))
 
         # print("<-----------------------")
