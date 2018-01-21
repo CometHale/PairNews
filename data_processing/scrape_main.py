@@ -87,7 +87,9 @@ for articleNum in range(numArticles):
     articleJson = allArticleJsons[articleNum]
     scrapedData = scrape(articleJson)
 
-    jsonStore.append(scrapedData.toJson())
+    if scrapedData != None:
+        jsonStore.append(scrapedData.toJson())
+
     print("Scraped article {} / {}".format(articleNum, numArticles))
 
     if killer.kill_now:

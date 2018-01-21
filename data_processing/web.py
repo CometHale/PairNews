@@ -8,7 +8,12 @@ def get(url, shouldCache=True):
             print("Hit: {}", url)
             return __cache[url]
 
-    response = requests.get(url)
+    try:
+        response = requests.get(url)
+    except Exception as err:
+        print("ERR: could not fetch url = {}, err = {}".format(url, err))
+        return None
+
     print("Fetch: {}".format(url))
     if shouldCache:
         __cache[url] = response
