@@ -3,10 +3,16 @@ import web
 
 
 def __largest_text(results):
+    if type(results) is str:
+        return results
+
     bestLen = 0
     bestText = ""
     for result in results:
-        text = result.get_text()
+        if type(result) is str:
+            text = result
+        else:
+            text = result.get_text()
         l = len(text)
         if l > bestLen:
             bestLen = l
@@ -20,23 +26,23 @@ def __match_tag(soup, tagName, idName=True, className=True):
     })
 
 
-SCRAPE_PATTERNS = {
-    "fortune" : {
-        "tagName" : "div",
-        "idName" : "article-body",
-        "className" : True
-    },
-    "the-hill" : {
-        "tagName" : "div",
-        "idName" : True,
-        "className" : "field-items"
-    },
-    "politico" : {
-        "tagName" : "div",
-        "idName" : True,
-        "className" : "story-text"
-    },
+def __scrape_fortune(soup):
+    return __match_tag(soup, "div", idName="article-body", className=None)
 
+def __scrape_the_hill(soup):
+    mainMatches = __match_tag(soup, "div", idName=None, className="field-items")
+    textMatches = map(lambda mainStoryTag: "\n".join([tag.get_text() for tag in mainStoryTag.find_all("p")]), mainMatches)
+    return textMatches
+
+def __scrape_politico(soup):
+    mainStoryTag = __match_tag(soup, "div", idName=None, className="story-text")[0]
+    return "\n".join([tag.get_text() for tag in mainStoryTag.find_all("p")])
+
+
+SCRAPE_FUNCS = {
+    "fortune" : __scrape_fortune,
+    "the-hill" : __scrape_the_hill,
+    "politico" : __scrape_politico
 }
 
 def _scrape_text(url, sourceId):
@@ -45,11 +51,10 @@ def _scrape_text(url, sourceId):
     html = web.get(url).content
     soup = BeautifulSoup(html, 'html.parser')
 
-    if sourceId in SCRAPE_PATTERNS:
-        pattern = SCRAPE_PATTERNS[sourceId]
-
-        m = __match_tag(soup, tagName=pattern["tagName"], idName=pattern["idName"], className=pattern["className"])
-        return __largest_text(m)
+    if sourceId in SCRAPE_FUNCS:
+        func = SCRAPE_FUNCS[sourceId]
+        text = __largest_text(func(soup))
+        return text
     else:
         print("ERR: No scraper implemented for source-id = {}".format(sourceId))
         return soup.body.get_text()
