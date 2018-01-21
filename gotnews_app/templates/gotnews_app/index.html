@@ -105,17 +105,20 @@ function toggleHidden(node1Id, node2Id) {
         </div>
 	    </div>
       <!-- <button onclick="toggleHidden('row-{{row.id}}', 'row-{{row.id}}-expanded')"> Expand </button> -->
-      <a class="btn btn-primary" data-toggle="collapse" href="#row-{{row.id}}-expanded" role="button" aria-expanded="false" aria-controls="collapseExample">
-    	More articles
-  	</a>
-		</div>
+       <div class='button_pos text-center'>
+          <a class="btn btn-primary links btn_circle" data-toggle="collapse" href="#row-{{row.id}}-expanded" role="button" aria-expanded="false" aria-controls="collapseExample">
+            +
+         </a>
+       </div>
+    </div>
+
 
 		<div class="collapsible-row collapse" id="row-{{row.id}}-expanded">
 			{% for event_id, art_querysets in other_articles.items %}
         {% if key == event_id %}
           <div class="expand-row" id="row-{{row.id}}">
-              {% for article in art_querysets.0 %}
-                 <div class="col-xs-sm-md-lg-6 positive">
+            {% for article in art_querysets.1 %}
+                 <div class="col-xs-sm-md-lg-6 positive collapsed_list">
                     <div class="text">
                       <div class="wrapper">
                         <div id="circle-placeholder-{{article.id}}" class="progress-container"></div>
@@ -125,10 +128,22 @@ function toggleHidden(node1Id, node2Id) {
                         <div id="{{article.id}}-source" class="sub-article-source">{{ article.news_source.name }}</div>
                     </div>
                   </div>
+
+
+                <script type="text/javascript">
+                  var sent0 = {{article.overall_sentiment}} / 100
+                  var pos0 = sent0 >= 0
+                  var barId0 = "circle-placeholder-{{article.id}}"
+                  var bar0 = makeProgress(pos0, barId0)
+                  bar0.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
+                  bar0.text.style.fontSize = '2rem';
+
+                  bar0.animate(Math.abs(sent0));  // Number from 0.0 to 1.0
+                </script>
               {% endfor %}
 
-            {% for article in art_querysets.1 %}
-                 <div class="col-xs-sm-md-lg-6 negative">
+              {% for article in art_querysets.0 %}
+                 <div class="col-xs-sm-md-lg-6 negative collapsed_list">
                     <div class="text">
                       <div class="wrapper">
                         <div id="circle-placeholder-{{article.id}}" class="progress-container"></div>
@@ -138,6 +153,17 @@ function toggleHidden(node1Id, node2Id) {
                         <div id="{{article.id}}-source" class="sub-article-source">{{ article.news_source.name }}</div>
                     </div>
                   </div>
+              
+                <script type="text/javascript">
+                  var sent0 = {{article.overall_sentiment}} / 100
+                  var pos0 = sent0 >= 0
+                  var barId0 = "circle-placeholder-{{article.id}}"
+                  var bar0 = makeProgress(pos0, barId0)
+                  bar0.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
+                  bar0.text.style.fontSize = '2rem';
+
+                  bar0.animate(Math.abs(sent0));  // Number from 0.0 to 1.0
+                </script>
               {% endfor %}
           </div>
         {%endif%}

@@ -1,86 +1,111 @@
 /* Body & HTML */
 body{
-	background-color:#FEFEFF;
+  background-color:#FEFEFF;
 }
 
 /* Nav Bar */
 nav.navbar{
-	background-color: black;
+  background-color: black;
 }
 
 a.navbar-brand{
-	color:white;
+  color:white;
 }
 
 a.navbar-brand:hover{
-	color:blue;
+  color:blue;
+}
+
+a.links {
+  display:inline;
+
+  font-weight:bold;
+}
+
+a.btn_circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
 }
 
 /* Content Wrappers */
 div#content{
-	background-color: blue;
-	margin: 0px auto;
-	width:80%;
-	height:100%;
+  background-color: blue;
+  margin: 0px auto;
+  width:80%;
+  height:100%;
 }
 
 div.row{
-	width:70%;
-	margin:15px auto;
-	box-shadow: 2px 3px 1px #888888;
+  width:70%;
+  margin:10px auto;
+  padding-top:20px;
 }
 
 div.collapsible-row{
-	width:70%;
-	margin:15px auto;
-	font-size: 10px;
-	/*box-shadow: 2px 3px 1px #888888;*/
+  width:70%;
+  margin:15px auto;
+  font-size: 10px;
+  /*box-shadow: 2px 3px 1px #888888;*/
 }
 
 div.expand-row{
-	width:90%;
-	margin:30px auto;
-	height:25vh;
+  width:90%;
+  margin:30px auto;
+  height:25vh;
 }
 
 div.expand-col-xs-sm-md-lg-6{
-	width:50%;
-	float:left;
-	height:25vh;
+  width:50%;
+  float:left;
+  height:25vh;
 }
 
 div.col-xs-sm-md-lg-6{
-	width:50%;
-	float:left;
-	height:25vh;
+  width:50%;
+  float:left;
+  height:25vh;
 }
 
 div.col-xs-sm-md-lg-6.positive{
-	background-color: #C8EBC3;
-	border-top-left-radius: 5px;
-	border-bottom-left-radius: 5px;
-	
+  background-color: #C8EBC3;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  
 }
 
 div.col-xs-sm-md-lg-6.negative{
-	background-color:#F9DED3;
-	border-top-right-radius: 5px;
-	border-bottom-right-radius: 5px;
+  background-color:#F9DED3;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 div.text {
-	margin: 15px 15px 15px 25px;
+  margin: 15px 15px 15px 25px;
 }
 
 div.sub-article-title {
-	font-weight:bold;
-	font-size:20px;
+  font-weight:bold;
+  font-size:17px;
 }
 
 div.progress-container {
-	float: right;
+  float: right;
 }
+
 div.sub-article-source {
-	font-size:18px;
-	font-weight:bold;
+  font-size:15px;
+  font-weight:bold;
+}
+
+div.button_pos {
+   margin-left: auto;
+   margin-right: auto;
+   margin-top:-10px;
+}
+
+div.collapsed_list {
+	border-width: 1;
+	border-style: solid;
+
 }
