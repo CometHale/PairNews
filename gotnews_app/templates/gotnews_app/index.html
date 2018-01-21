@@ -118,7 +118,18 @@ function toggleHidden(node1Id, node2Id) {
         {% if key == event_id %}
           <div class="expand-row" id="row-{{row.id}}">
               {% for article in art_querysets %}
-                <div class="expand-col-xs-sm-md-lg-6 positive">
+                  <div class="expand-col-xs-sm-md-lg-6 positive">
+                    <div class="text">
+                      <div class="wrapper">
+                        <div id="circle-placeholder-{{article.1.id}}" class="progress-container"></div>
+                        <div id="{{article.1.id}}-title" class="sub-article-title"><a href='{{article.1.url}}'>{{article.1.title}}</a></div>
+                      </div>
+                        <div id="{{article.1.id}}-sentiment" class="sub-article-sentiment">{{article.1.overall_sentiment}}</div>
+                        <div id="{{article.1.id}}-source" class="sub-article-source">{{ article.1.news_source.name }}</div>
+                    </div>
+                  </div>
+
+                <div class="expand-col-xs-sm-md-lg-6 negative">
                     <div class="text">
                       <div class="wrapper">
                         <div id="circle-placeholder-{{article.0.id}}" class="progress-container"></div>
@@ -129,16 +140,6 @@ function toggleHidden(node1Id, node2Id) {
                     </div>
                   </div>
 
-                  <div class="expand-col-xs-sm-md-lg-6 negative">
-                    <div class="text">
-                      <div class="wrapper">
-                        <div id="circle-placeholder-{{article.1.id}}" class="progress-container"></div>
-                        <div id="{{article.1.id}}-title" class="sub-article-title"><a href='{{article.1.url}}'>{{article.1.title}}</a></div>
-                      </div>
-                        <div id="{{article.1.id}}-sentiment" class="sub-article-sentiment">{{article.1.overall_sentiment}}</div>
-                        <div id="{{article.1.id}}-source" class="sub-article-source">{{ article.1.news_source.name }}</div>
-                    </div>
-                  </div>
               
                 <script type="text/javascript">
                   var sent0 = {{article.0.overall_sentiment}} / 100
