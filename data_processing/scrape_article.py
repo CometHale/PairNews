@@ -55,7 +55,7 @@ def __default_scrape(soup):
 
 SCRAPE_FUNCS = {
     "fortune" : __scrape_fortune,
-    "the-hill" : __scrape_the_hill,
+    "the-hill" : __default_scrape,
     "politico" : __scrape_politico,
     "breitbart-news" : __scrape_breitbart,
     "cnn" : __default_scrape,
