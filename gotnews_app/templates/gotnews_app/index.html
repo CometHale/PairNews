@@ -27,9 +27,6 @@ function makeProgress(isPositive, nodeName) {
       circle.path.setAttribute('stroke-width', state.width);
 
       var value = Math.round(circle.value() * 100);
-      if (value === 0) {
-        circle.setText('');
-      } else {
       	if(isPositive == false) {
         	circle.setText('<div class="flipped">' + Math.abs(value) + '</div>');
       	} else {
