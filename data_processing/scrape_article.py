@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-import data_processing.web as web
+import web
 
 
 def __largest_text(results):

@@ -1,8 +1,8 @@
 import math
-import data_processing.web as web
+import web as web
 import json
 import signal
-from data_processing.scrape_article import scrape, ScrapeData
+from scrape_article import scrape, ScrapeData
 
 class GracefulKiller:
     kill_now = False
