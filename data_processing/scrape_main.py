@@ -50,7 +50,8 @@ urlBlacklist = [
     re.compile(r".*abcnews.*/Sports/.*"),
     re.compile(r".*reuters.*/sportsNews/.*"),
     re.compile(r".*reuters.*/us-mma-.*"),
-    re.compile(r".*abc.*/shows/.*")
+    re.compile(r".*abc.*/shows/.*"),
+
 ]
 
 def matches_none(url, reList):
@@ -75,6 +76,7 @@ generalIds = [source["id"] for source in generalSourcesJson["sources"]]
 allIds = businessIds + generalIds
 allIds.remove("google-news")
 allIds.remove("reddit-r-all")
+allIds.remove("vice-news")
 
 
 numBatches = int(math.ceil(len(allIds) / 20))
