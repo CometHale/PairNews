@@ -113,7 +113,7 @@ function toggleHidden(node1Id, node2Id) {
 		<div class="row collapse" id="row-{{row.id}}-expanded">
 			{% for event_id, art_querysets in other_articles.items %}
         {% if key == event_id %}
-          <div class="row" id="row-{{row.id}}">
+          <div class="expand-row" id="row-{{row.id}}">
               {% for article in art_querysets.0 %}
                  <div class="col-xs-sm-md-lg-6 positive">
                     <div class="text">
