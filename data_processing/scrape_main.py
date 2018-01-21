@@ -3,7 +3,12 @@ import web as web
 import json
 import signal
 import re
+import argparse
 from scrape_article import scrape, ScrapeData
+
+parser = argparse.ArgumentParser()
+parser.add_argument('PAGE_LIMIT', type=int, default=1, nargs='?')
+args = parser.parse_args()
 
 class GracefulKiller:
     kill_now = False
@@ -16,7 +21,7 @@ class GracefulKiller:
 
 
 PAGE_SIZE = 100
-PAGE_LIMIT = 1
+PAGE_LIMIT = args.PAGE_LIMIT
 
 # Read News API key
 with open("newsapikey.txt", "r") as apiFile:
@@ -43,10 +48,15 @@ urlBlacklist = [
     re.compile(r".*www\.wsj\.com.*"),
     re.compile(r".*overwatchwire\.usatoday\.com.*"),
     re.compile(r".*reuters\.com.*/soccer-portugal-standings/.*"),
-    re.compile(r".*reuters\.com.*/us-tennis-ausopen-.*/.*"),
+    re.compile(r".*reuters\.com.*/.*-tennis-ausopen-.*/.*"),
     re.compile(r".*reuters\.com.*/us-olympics-2018-sno-.*/.*"),
     re.compile(r".*washingtonpost\.com/sports/.*"),
-    re.compile(r".*washingtonpost\.com/news/capital-weather-gang/.*")
+    re.compile(r".*washingtonpost\.com/news/capital-weather-gang/.*"),
+    re.compile(r".*abcnews.*/Sports/.*"),
+    re.compile(r".*reuters.*/sportsNews/.*"),
+    re.compile(r".*reuters.*/us-mma-.*"),
+    re.compile(r".*abc.*/shows/.*"),
+
 ]
 
 def matches_none(url, reList):
@@ -71,6 +81,7 @@ generalIds = [source["id"] for source in generalSourcesJson["sources"]]
 allIds = businessIds + generalIds
 allIds.remove("google-news")
 allIds.remove("reddit-r-all")
+allIds.remove("vice-news")
 
 
 numBatches = int(math.ceil(len(allIds) / 20))
@@ -111,7 +122,12 @@ numArticles = len(allArticleJsons)
 
 for articleNum in range(numArticles):
     articleJson = allArticleJsons[articleNum]
-    scrapedData = scrape(articleJson)
+
+    try:
+        scrapedData = scrape(articleJson)
+    except Exception as err:
+        print("ERR: Error scraping article = {}, error = {}".format(articleJson, err))
+        scrapedData = None
 
     if scrapedData != None:
         jsonStore.append(scrapedData.toJson())

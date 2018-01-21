@@ -68,8 +68,16 @@ def __scrape_usa_today(soup):
     text = __default_scrape(soup)
     return text.replace("Related Stories:", "")
 
+def __scrape_abc(soup):
+    mainStoryTag = __match_tag(soup, "div", idName=None, className="article-copy")[0]
+    return "\n".join([tag.get_text() for tag in mainStoryTag.find_all("p", attrs={"itemprop" : "articleBody"})])
+
 def __default_scrape(soup):
-    return fulltext(str(soup))
+    try:
+        return fulltext(str(soup))
+    except Exception as err:
+        print("ERR: could not parse HTML!")
+        return None
 
 SCRAPE_FUNCS = {
     "fortune" : __scrape_fortune,
@@ -80,6 +88,8 @@ SCRAPE_FUNCS = {
     "the-huffington-post" : __scrape_huffington_post,
     "the-new-york-times" : __scrape_new_york_time,
     "usa-today" : __scrape_usa_today,
+    "abc-news" : __scrape_abc,
+
 }
 
 def _scrape_text(url, sourceId):
@@ -97,7 +107,7 @@ def _scrape_text(url, sourceId):
         text = __largest_text(func(soup))
         return text
     else:
-        print("ERR: No scraper implemented for source-id = {}".format(sourceId))
+        print("WARN: No scraper implemented for source-id = {}".format(sourceId))
         return __default_scrape(soup)
 
 class ScrapeData:
